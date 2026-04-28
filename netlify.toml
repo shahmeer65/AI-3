@@ -1,0 +1,28 @@
+[build]
+  command   = "npm run build"
+  publish   = "dist"
+  functions = "netlify/functions"
+
+[dev]
+  command     = "vite"
+  port        = 8888
+  targetPort  = 5173
+  autoLaunch  = false
+
+# Proxy all /api/* to functions during local dev (optional alias)
+[[redirects]]
+  from   = "/api/*"
+  to     = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
+
+# Environment variables (set real values in Netlify UI or .env)
+# ANTHROPIC_API_KEY = "sk-ant-..."   ← set in Netlify dashboard, NOT here

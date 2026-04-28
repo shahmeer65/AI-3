@@ -1,0 +1,75 @@
+{
+  "_comment": "PRIVATE — never import this file in src/. Loaded only by generate-report.js at runtime on the server.",
+
+  "model_version": "2.1.0",
+  "last_updated": "2025-04",
+
+  "scoring_weights": {
+    "location_score":        0.25,
+    "market_momentum":       0.20,
+    "income_potential":      0.18,
+    "supply_constraint":     0.15,
+    "demographic_trend":     0.12,
+    "infrastructure_access": 0.10
+  },
+
+  "thresholds": {
+    "buy":          75,
+    "watch":        55,
+    "avoid":        40,
+    "strong_buy":   88
+  },
+
+  "market_tiers": {
+    "tier_1": {
+      "label": "Primary Metro",
+      "markets": ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX", "Phoenix, AZ"],
+      "cap_rate_floor":  0.035,
+      "cap_rate_ceiling": 0.065,
+      "growth_premium":  1.15
+    },
+    "tier_2": {
+      "label": "Secondary Metro",
+      "markets": ["Austin, TX", "Nashville, TN", "Raleigh, NC", "Tampa, FL", "Charlotte, NC"],
+      "cap_rate_floor":  0.045,
+      "cap_rate_ceiling": 0.075,
+      "growth_premium":  1.25
+    },
+    "tier_3": {
+      "label": "Emerging Market",
+      "markets": [],
+      "cap_rate_floor":  0.055,
+      "cap_rate_ceiling": 0.095,
+      "growth_premium":  1.10
+    }
+  },
+
+  "risk_adjustments": {
+    "flood_zone":          -8,
+    "superfund_proximity": -12,
+    "hoa_controlled":      -3,
+    "opportunity_zone":    +6,
+    "transit_score_high":  +5,
+    "school_rating_top":   +7,
+    "vacancy_rate_low":    +4,
+    "landlord_friendly":   +5
+  },
+
+  "comparable_multipliers": {
+    "sfr":        1.00,
+    "multifamily": 0.92,
+    "condo":       0.88,
+    "commercial":  0.78
+  },
+
+  "income_assumptions": {
+    "vacancy_rate_default":    0.07,
+    "expense_ratio_default":   0.42,
+    "mgmt_fee_pct":            0.08,
+    "capex_reserve_pct":       0.05,
+    "insurance_pct_of_value":  0.0045,
+    "property_tax_rate_avg":   0.011
+  },
+
+  "prompt_template": "You are a professional real estate investment analyst. You have been given a proprietary scoring report for a property at {address}. Using the data below, write a concise one-page investment brief in professional markdown.\n\nInclude:\n1. **Executive Summary** — 2-sentence verdict\n2. **Score Breakdown** — render each category score as a mini bar (use █ and ░ chars, 10-wide)\n3. **Income Projection** — annual gross rent, NOI, cap rate, cash-on-cash (assume 25% down, 7.2% rate, 30yr)\n4. **Risk Flags** — bullet list of any active risk adjustments\n5. **Recommendation** — Buy / Watch / Avoid with one-paragraph rationale\n\nDo not invent data. Only use what is provided. Be specific and direct. No filler.\n\n--- SCORING DATA ---\n{scoring_data}\n"
+}
