@@ -4,17 +4,7 @@
 // Nothing in this file is ever sent to or readable by the browser.
 // The browser only receives the final { report: "..." } string.
 
-const path = require("path");
-const fs   = require("fs");
-
-// ─── Load private model data from the adjacent JSON ──────────────────────────
-// This file never leaves the server. Netlify bundles it with the function.
-const MODEL = JSON.parse(
-  fs.readFileSync(
-    path.join(__dirname, "private-model-data.json"),
-    "utf8"
-  )
-);
+const MODEL = require("./private-model-data.json");
 
 // ─── CORS / preflight helper ──────────────────────────────────────────────────
 const HEADERS = {
